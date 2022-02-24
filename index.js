@@ -22,9 +22,13 @@ let fCheckRequirement = async function (orgnr) {
     }
 };
 
-// Event listeners
+function removeSpaces(input) {
+    return input.replace(/\s+/g, '');
+}
+
+// Main event listener
 query.addEventListener('keyup', function() {
-    let queryTrimmed = query.value.replace(/\s+/g, '');
+    let queryTrimmed = removeSpaces(query.value);
     if (queryTrimmed.length == 9) {
         fCheckRequirement(queryTrimmed);
     } else {
@@ -32,8 +36,9 @@ query.addEventListener('keyup', function() {
     }
 });
 
+// Backup event listener
 query.addEventListener('keydown', function(e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-        fCheckRequirement();
+    if (e.code === "Enter") {
+        fCheckRequirement(removeSpaces(query.value));
     }
 });
