@@ -1,13 +1,13 @@
 let query = document.querySelector("#query");
-let button = document.querySelector("button");
 let answer = document.querySelector("#answer");
 
 const apiUrl = "https://data.brreg.no/enhetsregisteret/api/enheter/";
 
-button.addEventListener("click", async function() {
-    let queryTrimmed = query.value.replace(/\s+/g, '');
+// Check if occupational health service is required
+var fCheckRequirement = async function (orgnr) {
+    console.log(orgnr);
 
-    const response = await fetch (apiUrl + queryTrimmed);
+    const response = await fetch (apiUrl + orgnr);
     const data = await response.json();
 
     // Hardkodet, ref. https://www.arbeidstilsynet.no/regelverk/forskrifter/forskrift-om-organisering-ledelse-og-medvirkning/13/13-1/
@@ -16,10 +16,20 @@ button.addEventListener("click", async function() {
 
     for (i = 0; i < substring.length; i++) {
         if (array.includes(substring[i]) ) {
-            answer.innerHTML = "Ja, " + data.navn + " er pålagt å tilknytte seg en offentlig godkjent bedriftshelsetjeneste!";
+            answer.innerHTML = "<br>Ja, " + data.navn + " er pålagt å tilknytte seg en offentlig godkjent bedriftshelsetjeneste! <br><a href=https://hms-tjenesten.no/bli-medlem/>Bli medlem hos HMS-tjenesten nå</a>";
             break
         } else {
-            answer.innerHTML = "Nei, " + data.navn + "er ikke pålagt å tilknytte seg en offentlig godkjent bedriftshelsetjeneste";
+            answer.innerHTML = "<br>Nei, " + data.navn + "er ikke pålagt å tilknytte seg en offentlig godkjent bedriftshelsetjeneste";
         }
+    }
+};
+
+query.addEventListener('keyup', function() {
+    let queryTrimmed = query.value.replace(/\s+/g, '');
+    console.log(queryTrimmed.length);
+    if (queryTrimmed.length == 9) {
+        fCheckRequirement(queryTrimmed);
+    } else {
+        answer.innerHTML = "";
     }
 });

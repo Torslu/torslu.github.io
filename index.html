@@ -28,14 +28,8 @@
         #query {
             resize: none;
             text-align: center;
-            font-size: large;
+            font-size: larger;
 
-        }
-
-        button {
-            font-size: 16px;
-            padding: 5px;
-            width: 245px;
         }
 
         h1 {
@@ -46,10 +40,8 @@
 <body>
     <div id = "content">
         <h1>Har din bedrift krav om tilknytning til bedriftshelsetjeneste?</h1>
-        <textarea id="query" rows="1" cols="25" resize="none" placeholder="Skriv inn bedriftens orgnr."></textarea>
+        <input type="text" id="query" placeholder="Skriv inn bedriftens orgnr." autofocus></input>
         <br>
-        <button>Søk</button>
-        <br><br>
         <p id="answer"></p>
     </div>
     
